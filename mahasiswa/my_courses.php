@@ -37,7 +37,6 @@ $praktikumResult = $stmt->get_result();
     <div class="bg-white rounded-xl shadow-md p-6">
         <h2 class="text-xl font-semibold text-blue-600 mb-1"><?= htmlspecialchars($praktikum['nama']) ?></h2>
         <p class="text-gray-700"><?= htmlspecialchars($praktikum['deskripsi']) ?></p>
-        <p class="text-sm text-gray-500 mb-4"><?= $praktikum['semester'] ?> - <?= $praktikum['tahun_ajaran'] ?></p>
         <a href="detail_praktikum.php?id=<?= $praktikum['id'] ?>"
             class="text-blue-500 underline mb-4 inline-block">Lihat Detail Praktikum</a>
 

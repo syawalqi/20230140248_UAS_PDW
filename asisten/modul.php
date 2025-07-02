@@ -161,6 +161,11 @@ require_once 'templates/header.php';
                     <input type="hidden" name="hapus_praktikum_id" value="<?= $p['id'] ?>">
                     <button type="submit"
                         class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Hapus</button>
+
+                    <a href="edit_praktikum.php?id=<?= $p['id'] ?>"
+                        class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">
+                        Edit
+                    </a>
                 </form>
             </div>
         </li>

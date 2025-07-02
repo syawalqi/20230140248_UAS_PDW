@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 02, 2025 at 07:29 PM
+-- Generation Time: Jul 02, 2025 at 07:50 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -74,6 +74,7 @@ CREATE TABLE `praktikum` (
   `id` int(11) NOT NULL,
   `asisten_id` int(11) NOT NULL,
   `nama` varchar(100) NOT NULL,
+  `deskripsi` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -99,8 +100,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `nama`, `email`, `password`, `role`, `created_at`) VALUES
 (1, 'Galih', 'galih@gmail.com', '$2y$10$21S2AazlN9RwW.Lj0qAEN.YkzZGFVJ6TW8GouNeMZjeUqIsIRaRb2', 'asisten', '2025-07-02 14:19:18'),
 (2, 'Maha', 'maha@gmail.com', '$2y$10$l67paNH9GPLJ2g4fOuvs0uHSvPB9ZxQWVNPSKm8QHjUFEF/bWUdFS', 'mahasiswa', '2025-07-02 14:28:25');
- --- Galih Password : 123
- --- Maha Password : 123
+
 --
 -- Indexes for dumped tables
 --
@@ -167,7 +167,7 @@ ALTER TABLE `pendaftaran_praktikum`
 -- AUTO_INCREMENT for table `praktikum`
 --
 ALTER TABLE `praktikum`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`

@@ -16,14 +16,17 @@ $asisten_id = $_SESSION['user_id'];
 // Tambah Praktikum
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tambah_praktikum'])) {
     $nama = trim($_POST['nama_praktikum']);
+    $deskripsi = trim($_POST['deskripsi'] ?? '');
+
     if (!empty($nama)) {
-        $stmt = $conn->prepare("INSERT INTO praktikum (nama, asisten_id) VALUES (?, ?)");
-        $stmt->bind_param("si", $nama, $asisten_id);
+        $stmt = $conn->prepare("INSERT INTO praktikum (nama, deskripsi, asisten_id) VALUES (?, ?, ?)");
+        $stmt->bind_param("ssi", $nama, $deskripsi, $asisten_id);
         $stmt->execute();
         header("Location: modul.php");
         exit();
     }
 }
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['hapus_praktikum_id'])) {
     $hapusId = (int)$_POST['hapus_praktikum_id'];
@@ -109,12 +112,19 @@ require_once 'templates/header.php';
             <label for="nama_praktikum" class="block font-medium mb-1">Nama Praktikum</label>
             <input type="text" name="nama_praktikum" id="nama_praktikum" required class="w-full p-2 border rounded">
         </div>
+
+        <div class="mb-4">
+            <label for="deskripsi" class="block font-medium mb-1">Deskripsi Praktikum</label>
+            <textarea name="deskripsi" id="deskripsi" rows="3" class="w-full p-2 border rounded resize-none"></textarea>
+        </div>
+
         <button type="submit" name="tambah_praktikum"
             class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
             Tambah Praktikum
         </button>
     </form>
 </div>
+
 
 <!-- Pilih Praktikum -->
 <div class="bg-white p-6 rounded-lg shadow-md mb-6">
@@ -136,19 +146,28 @@ require_once 'templates/header.php';
     <h3 class="text-lg font-semibold mb-3">Daftar Praktikum Anda</h3>
     <ul class="space-y-2">
         <?php
-        $praktikumListResult = $conn->query("SELECT id, nama FROM praktikum WHERE asisten_id = $asisten_id");
+        $praktikumListResult = $conn->query("SELECT id, nama, deskripsi FROM praktikum WHERE asisten_id = $asisten_id");
         while ($p = $praktikumListResult->fetch_assoc()):
         ?>
-        <li class="flex justify-between items-center border-b pb-2">
-            <span><?= htmlspecialchars($p['nama']) ?></span>
-            <form method="post" onsubmit="return confirm('Yakin ingin menghapus praktikum ini?');">
-                <input type="hidden" name="hapus_praktikum_id" value="<?= $p['id'] ?>">
-                <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Hapus</button>
-            </form>
+        <li class="border-b pb-2">
+            <div class="flex justify-between items-center">
+                <div>
+                    <span class="font-semibold"><?= htmlspecialchars($p['nama']) ?></span>
+                    <?php if (!empty($p['deskripsi'])): ?>
+                    <p class="text-sm text-gray-500 italic"><?= htmlspecialchars($p['deskripsi']) ?></p>
+                    <?php endif; ?>
+                </div>
+                <form method="post" onsubmit="return confirm('Yakin ingin menghapus praktikum ini?');">
+                    <input type="hidden" name="hapus_praktikum_id" value="<?= $p['id'] ?>">
+                    <button type="submit"
+                        class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Hapus</button>
+                </form>
+            </div>
         </li>
         <?php endwhile; ?>
     </ul>
 </div>
+
 
 <?php if ($praktikum_id): ?>
 <!-- Form Tambah Modul -->

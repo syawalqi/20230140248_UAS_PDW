@@ -34,7 +34,6 @@ $result = $stmt->get_result();
     <div class="bg-white rounded-xl shadow-md p-6">
         <h2 class="text-xl font-semibold text-blue-600"><?= htmlspecialchars($row['nama']) ?></h2>
         <p class="text-gray-600"><?= htmlspecialchars($row['deskripsi']) ?></p>
-        <p class="text-sm text-gray-500 mb-4"><?= $row['semester'] ?> - <?= $row['tahun_ajaran'] ?></p>
 
         <?php if ($row['sudah_ikut']): ?>
         <span class="inline-block bg-green-100 text-green-700 px-3 py-1 rounded text-sm">Sudah Terdaftar</span>
